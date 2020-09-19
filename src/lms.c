@@ -138,7 +138,7 @@ void setCategory(char *new_book_category)
 		break;
 
 		case 3:
-		strcpy(new_book_category,"Social Science);
+		strcpy(new_book_category,"Social Science");
 		break;	
 
 		case 4:
