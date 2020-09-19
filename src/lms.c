@@ -38,20 +38,20 @@ int getCommand(int token)
 		
 		while(command != 1 && command != 2 && command != 3 && command != 4)
 		{
-			printf("Comando invalido! Digite novamente -> ");
+			printf("Invalid command! type again -> ");
 			scanf("%d", &command);
 			getchar();
 		}
 	}
 	else if (token == 2)
 	{	
-		printf("Digite o comando desejado -> ");
+		printf("Enter the desired command -> ");
 		scanf("%d", &command);
 		getchar();
 	
 		while(command != 1 && command != 2 && command != 3 && command && command !=  4 && command != 5)
 		{
-			printf("Comando invalido! Digite novamente -> ");
+			printf("Invalid command! type again -> ");
 			scanf("%d", &command);
 			getchar();
 		}
@@ -64,11 +64,11 @@ char getAnswer(int token)
 {
 	if (token == 0)
 	{
-		printf("Livro adicionado com sucesso! Deseja adicionar outro?");
+		printf("Book successfully added! Do you want to add another one?");
 	}
 	else if (token == 1)
 	{
-		printf("Deseja consultar novamente?");		
+		printf("Do you want to consult again?");		
 	}
 	
 	printf(" (s/n) -> ");
@@ -80,7 +80,7 @@ char getAnswer(int token)
 	
 	while(answer != 's' && answer != 'n')
 	{
-		printf("\nComando invalido! Digite novamente -> ");
+		printf("\nInvalid command! type again -> ");
 		scanf("%c", &answer);
 		getchar();
 		answer = tolower(answer);		
@@ -98,18 +98,18 @@ char getAnswer(int token)
 
 void setCategory(char *new_book_category)
 {
-	printf("\n0 - Generalidades\n");
-	printf("1 - Filosofia\n");
-	printf("2 - Religiao\n");
-	printf("3 - Ciencias sociais\n");
-	printf("4 - Linguas\n");
-	printf("5 - Ciencias Puras\n");
-	printf("6 - Ciencias Aplicadas\n");
-	printf("7 - Artes\n");
-	printf("8 - Literatura\n");
-	printf("9 - Historia e Geografia\n\n");
+	printf("\n0 - Generalities\n");
+	printf("1 - Philosphy\n");
+	printf("2 - Religion\n");
+	printf("3 - Social Sciences\n");
+	printf("4 - Language\n");
+	printf("5 - Pure Science\n");
+	printf("6 - Applied Science\n");
+	printf("7 - Arts\n");
+	printf("8 - Literature\n");
+	printf("9 - Geography and History\n\n");
 
-	printf("Digite o número -> ");
+	printf("Enter the Number-> ");
 
 	int category;
 	scanf("%d", &category);
@@ -118,7 +118,7 @@ void setCategory(char *new_book_category)
 	while (category != 0 && category != 1 && category != 2 && category != 3 && category != 4 && 
 		category != 5 && category != 6 && category != 7 && category != 8 && category != 9)
 	{
-		printf("Numero invalido, digite novamente -> ");
+		printf("Invalid number, type again -> ");
 		scanf("%d", &category);
 		getchar();
 	}
@@ -126,43 +126,43 @@ void setCategory(char *new_book_category)
 	switch(category)
 	{
 		case 0:
-		strcpy(new_book_category,"Generalidades");
+		strcpy(new_book_category,"Generalities");
 		break;	
 
 		case 1:
-		strcpy(new_book_category,"Filosofia");
+		strcpy(new_book_category,"Philosphy");
 		break;	
 
 		case 2:
-		strcpy(new_book_category,"Religiao");
+		strcpy(new_book_category,"Religion");
 		break;
 
 		case 3:
-		strcpy(new_book_category,"Ciencias Sociais");
+		strcpy(new_book_category,"Social Science);
 		break;	
 
 		case 4:
-		strcpy(new_book_category,"Linguas");
+		strcpy(new_book_category,"language");
 		break;	
 
 		case 5:
-		strcpy(new_book_category,"Ciencias Puras");
+		strcpy(new_book_category,"Pure Science");
 		break;	
 
 		case 6:
-		strcpy(new_book_category,"Ciencias Aplicadas");
+		strcpy(new_book_category,"Applied Science");
 		break;	
 
 		case 7:
-		strcpy(new_book_category,"Artes");
+		strcpy(new_book_category,"Arts");
 		break;	
 
 		case 8:
-		strcpy(new_book_category,"Literatura");		
+		strcpy(new_book_category,"Literature");		
 		break;	
 
 		case 9:
-		strcpy(new_book_category,"Historia e Geografia");
+		strcpy(new_book_category,"Geography and History");
 		break;		
 	}
 }
@@ -185,18 +185,18 @@ void addBook()
 	char category[20];
 	struct tm *today;
 
-	printf("Digite o nome do livro: ");
+	printf("Enter book name: ");
 	fgets(book_title,50,stdin);
-	printf("Digite o nome do autor: ");
+	printf("Enter the author's name:");
 	fgets(author_name,50,stdin);
-	printf("Digite o nome da editora: ");
+	printf("Enter the name of the publisher: ");
 	fgets(publisher,25,stdin);
-	printf("Digite o número de ISBN: ");
+	printf("Enter the ISBN number:");
 	
 	scanf("%d", &isbn);
 	getchar();
 	
-	printf("Escolha a categoria\n");
+	printf("Choose category\n");
 	setCategory(category);
 	
 	*today = getTime();
@@ -239,12 +239,12 @@ void showAllBooks()
 		fgets(category,20,f);
 		fgets(date,15,f);
 
-		printf("Título: %s", book_title);
-		printf("Autor: %s", author_name);
-		printf("Editora: %s",publisher);
+		printf("Títle: %s", book_title);
+		printf("Author: %s", author_name);
+		printf("Editor: %s",publisher);
 		printf("ISBN: %s", isbn);
-		printf("Categoria: %s", category);
-		printf("Dia do cadastro: %s\n", date);
+		printf("Category: %s", category);
+		printf("Registration Date: %s\n", date);
 	}
 
 	fclose(f);
@@ -269,22 +269,22 @@ void checkContent(int command)
 	switch(command)
 	{
 		case 1:
-		printf("Digite o título que deseja buscar: ");
+		printf("Enter the title you want to search: ");
 		picked_content = book_title;
 		break;
 
 		case 2:
-		printf("Digite o autor que deseja buscar: ");
+		printf("Enter the author you want to search: ");
 		picked_content = author_name;
 		break;
 
 		case 3:
-		printf("Digite a editora que deseja buscar: ");
+		printf("Enter the publisher you want to search: ");
 		picked_content = publisher;
 		break;
 
 		case 4:
-		printf("Digite a categoria que deseja buscar: ");
+		printf("Enter the category you want to search for: ");
 		picked_content = category;
 		break;
 
@@ -312,12 +312,12 @@ void checkContent(int command)
 		if (compareString(searched_content,picked_content))
 		{
 			hasFound = 1;
-			printf("Título: %s", book_title);
-			printf("Autor: %s", author_name);
-			printf("Editora: %s",publisher);
+			printf("Títle: %s", book_title);
+			printf("Author: %s", author_name);
+			printf("Editor: %s",publisher);
 			printf("ISBN: %s", isbn);
-			printf("Categoria: %s", category);
-			printf("Dia do cadastro: %s\n", date);
+			printf("Category: %s", category);
+			printf("Registration Date: %s\n", date);
 		}
 	}
 	
@@ -325,7 +325,7 @@ void checkContent(int command)
 
 	if (!hasFound)
 	{
-		printf("Não foi possível encontrar resultados para essa pesquisa.\n");
+		printf("We couldn't find results for this search.\n");
 	}
 
 	(getAnswer(1)) ? checkContent(command) : showMenu();
@@ -341,12 +341,12 @@ void showMenu()
 { 
 	system("clear");
 
-	printf("Sistema de Livraria\n\n");
-	printf("1 - Adicionar Livro\n");
-	printf("2 - Checar Livro\n");
-	printf("3 - Apagar dados\n");
-	printf("4 - Sair\n\n");
-	printf("O que deseja? ");
+	printf("Bookstore System\n\n");
+	printf("1 - Add Book\n");
+	printf("2 -Check Book\n");
+	printf("3 - Erase data\n");
+	printf("4 -Go out\n\n");
+	printf("O What do you want? ");
 	
 	int command = getCommand(1);
 	switch(command)
@@ -373,11 +373,11 @@ void showCheckMenu()
 {
 	system("clear");
 	printf("Deseja consultar por...\n");
-	printf("1 - Título\n");
-	printf("2 - Autor\n");
-	printf("3 - Editora\n");
-	printf("4 - Categoria\n");
-	printf("5 - Todos os livros\n");
+	printf("1 - Title\n");
+	printf("2 - Author\n");
+	printf("3 - Editor\n");
+	printf("4 - Category\n");
+	printf("5 - All the books\n");
 
 	int command = getCommand(2);
 	checkContent(command);
