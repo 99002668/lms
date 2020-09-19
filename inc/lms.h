@@ -1,5 +1,5 @@
-#ifndef __FUNCTIONS_H__
-#define __FUNCTIONS_H__
+#ifndef __LMS_H__
+#define __LMS_H__
 
 #include <stdio.h> 
 #include <stdlib.h>
