@@ -3,5 +3,5 @@
 int main()
 {
         showMenu();
-        return O;
+        return 0;
 }
