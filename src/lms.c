@@ -37,20 +37,20 @@ int getCommand(int token)
 		
 		while(command != 1 && command != 2 && command != 3 && command != 4)
 		{
-			printf("Comando invalido! Digite novamente -> ");
+			printf(" -> ");
 			scanf("%d", &command);
 			getchar();
 		}
 	}
 	else if (token == 2)
 	{	
-		printf("Digite o comando desejado -> ");
+		printf(" -> ");
 		scanf("%d", &command);
 		getchar();
 	
 		while(command != 1 && command != 2 && command != 3 && command && command !=  4 && command != 5)
 		{
-			printf("Comando invalido! Digite novamente -> ");
+			printf("-> ");
 			scanf("%d", &command);
 			getchar();
 		}
@@ -63,11 +63,11 @@ char getAnswer(int token)
 {
 	if (token == 0)
 	{
-		printf("Livro adicionado com sucesso! Deseja adicionar outro?");
+		printf("  ->");
 	}
 	else if (token == 1)
 	{
-		printf("Deseja consultar novamente?");		
+		printf("?");		
 	}
 	
 	printf(" (s/n) -> ");
@@ -79,7 +79,7 @@ char getAnswer(int token)
 	
 	while(answer != 's' && answer != 'n')
 	{
-		printf("\nComando invalido! Digite novamente -> ");
+		printf("\n -> ");
 		scanf("%c", &answer);
 		getchar();
 		answer = tolower(answer);		
@@ -97,16 +97,16 @@ char getAnswer(int token)
 
 void setCategory(char *new_book_category)
 {
-	printf("\n0 - Generalidades\n");
-	printf("1 - Filosofia\n");
-	printf("2 - Religiao\n");
-	printf("3 - Ciencias sociais\n");
-	printf("4 - Linguas\n");
-	printf("5 - Ciencias Puras\n");
-	printf("6 - Ciencias Aplicadas\n");
-	printf("7 - Artes\n");
-	printf("8 - Literatura\n");
-	printf("9 - Historia e Geografia\n\n");
+	printf("\n0 - \n");
+	printf("1 - \n");
+	printf("2 - \n");
+	printf("3 -\n");
+	printf("4 -\n");
+	printf("5 - \n");
+	printf("6 - \n");
+	printf("7 -s\n");
+	printf("8 - \n");
+	printf("9 - \n\n");
 
 	printf("Digite o número -> ");
 
@@ -117,7 +117,7 @@ void setCategory(char *new_book_category)
 	while (category != 0 && category != 1 && category != 2 && category != 3 && category != 4 && 
 		category != 5 && category != 6 && category != 7 && category != 8 && category != 9)
 	{
-		printf("Numero invalido, digite novamente -> ");
+		printf("Numero invalid, digit -> ");
 		scanf("%d", &category);
 		getchar();
 	}
@@ -125,19 +125,19 @@ void setCategory(char *new_book_category)
 	switch(category)
 	{
 		case 0:
-		strcpy(new_book_category,"Generalidades");
+		strcpy(new_book_category,"Generals");
 		break;	
 
 		case 1:
-		strcpy(new_book_category,"Filosofia");
+		strcpy(new_book_category,"Fil");
 		break;	
 
 		case 2:
-		strcpy(new_book_category,"Religiao");
+		strcpy(new_book_category,"Rel");
 		break;
 
 		case 3:
-		strcpy(new_book_category,"Ciencias Sociais");
+		strcpy(new_book_category,"CiSociais");
 		break;	
 
 		case 4:
@@ -145,7 +145,7 @@ void setCategory(char *new_book_category)
 		break;	
 
 		case 5:
-		strcpy(new_book_category,"Ciencias Puras");
+		strcpy(new_book_category,"C Puras");
 		break;	
 
 		case 6:
@@ -153,15 +153,15 @@ void setCategory(char *new_book_category)
 		break;	
 
 		case 7:
-		strcpy(new_book_category,"Artes");
+		strcpy(new_book_category,"Art");
 		break;	
 
 		case 8:
-		strcpy(new_book_category,"Literatura");		
+		strcpy(new_book_category,"Liter");		
 		break;	
 
 		case 9:
-		strcpy(new_book_category,"Historia e Geografia");
+		strcpy(new_book_category,"Hist");
 		break;		
 	}
 }
@@ -268,22 +268,22 @@ void checkContent(int command)
 	switch(command)
 	{
 		case 1:
-		printf("Digite o título que deseja buscar: ");
+		printf("Digite: ");
 		picked_content = book_title;
 		break;
 
 		case 2:
-		printf("Digite o autor que deseja buscar: ");
+		printf("Digite: ");
 		picked_content = author_name;
 		break;
 
 		case 3:
-		printf("Digite a editora que deseja buscar: ");
+		printf("Digiter: ");
 		picked_content = publisher;
 		break;
 
 		case 4:
-		printf("Digite a categoria que deseja buscar: ");
+		printf("Digite: ");
 		picked_content = category;
 		break;
 
@@ -324,7 +324,7 @@ void checkContent(int command)
 
 	if (!hasFound)
 	{
-		printf("Não foi possível encontrar resultados para essa pesquisa.\n");
+		printf("\n");
 	}
 
 	(getAnswer(1)) ? checkContent(command) : showMenu();
