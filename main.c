@@ -1,4 +1,4 @@
-#include "functions.c"
+#include "lms.c"
 
 int main()
 {
