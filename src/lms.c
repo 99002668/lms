@@ -1,199 +1,386 @@
 #include "lms.h"
 
-#include<stdio.h>
 
-struct student
+int compareString(char *string_1, char *string_2)
 {
-    int rollnum;
-    char name[50];
-    char d1[10],d2[10];//date
-    char a1[30],a2[30];//author name
-    char booknum1[20],booknum2[20];
-    char b1[20],b2[20];//book name
-};
+	char compare_1[50];
+	strcpy(compare_1,string_1);
+	char compare_2[50];
+	strcpy(compare_2,string_2);
 
-void newstudent();
-void list();
-int search();
-void modify();
+	int i;
+	for (i = 0; i < 50; ++i)
+	{
+		compare_1[i] = tolower(compare_1[i]);
+		compare_2[i] = tolower(compare_2[i]);
+	}
 
-FILE *fp;
-struct student s;
+	compare_1[strlen(compare_1)-1] = '\0';	
 
-int main()
-{
-    printf("\t\t\tWELCOME TO THE PORTAL.");
-    int i;
-    int choice;
-
-    fp=fopen("library.txt","r+");
-
-    if(fp==NULL)
-    {
-        fp=fopen("library.txt","w");
-        fclose(fp);
-        fp=fopen("library.txt","r+");
-    }
-
-do{
-    printf("\n\t 1:LIST");
-    printf("\n\t 2:ADD");
-    printf("\n\t 3:SEARCH");
-    printf("\n\t 4:MODIFY");
-    printf("\n\t 5:EXIT");
-    printf("\n\t ENTER CHOICE\t");
-    scanf("%d",&i);
-    switch(i)
-    {
-
-    case 1:list();
-           break;
-    case 2:newstudent();
-            break;
-    case 3:search();
-            break;
-    case 4:modify();
-            break;
-    }
-   }
-   while(choice!=5);
-    fclose(fp);
-return 0;
-}
-//END OF THE MAIN PROGRAM--------------------------------------------
-
-void newstudent()
-{
-    fseek(fp,0L,SEEK_END);
-
-    printf("\n\t enter roll number\t");
-    scanf("%d",&s.rollnum);
-    printf("\n\t enter name");
-    scanf("%s",s.name);
-
-    printf("\n\t enter book1 name");
-    scanf("%s",s.b1);
-    printf("\n\t enter book1 author name");
-    scanf("%s",s.a1);
-    printf("\n\t enter the date of issue dd/mm/yyyy");
-    scanf("%s",s.d1);
-
-
-    printf("\n\t enter book2 name\t");
-    scanf("%s",s.b2);
-    printf("\n\t enter book2 author name");
-    scanf("%s",s.a2);
-    printf("\n\t enter the date of issue dd/mm/yyyy");
-    scanf("%s",s.d2);
-
-    fwrite(&s,sizeof(s),1,fp);
-
+	if (strstr(compare_2,compare_1) == NULL)
+	{
+		return 0;
+	}
+	
+	return 1;
 }
 
-
-void list()
+int getCommand(int token)
 {
 
-    int count=0;
-    fseek(fp,0L,SEEK_SET);
+	int command;
 
-    printf("\n-------------------------------------------------------------------\n");
-    printf("\n Rollnum  Name  Book1  Author1  Dateofissue1  Book2  Author2  Dateofissue2");
-    printf("\n-------------------------------------------------------------------\n");
+	if (token == 1)
+	{
+		printf("-> ");
+		scanf("%d", &command);
+		getchar();
+		
+		while(command != 1 && command != 2 && command != 3 && command != 4)
+		{
+			printf("Comando invalido! Digite novamente -> ");
+			scanf("%d", &command);
+			getchar();
+		}
+	}
+	else if (token == 2)
+	{	
+		printf("Digite o comando desejado -> ");
+		scanf("%d", &command);
+		getchar();
+	
+		while(command != 1 && command != 2 && command != 3 && command && command !=  4 && command != 5)
+		{
+			printf("Comando invalido! Digite novamente -> ");
+			scanf("%d", &command);
+			getchar();
+		}
+	}
 
-    while(fread(&s,sizeof(s),1,fp))
-    {
-        printf("\n %3d",s.rollnum);
-        printf("  %-10s",s.name);
-        printf("  %-10s",s.b1);
-        printf("  %-10s",s.a1);
-        printf("  %-10s",s.d1);
-
-        printf("  %-10s",s.b2);
-        printf("  %-10",s.a2);
-        printf("  %-10s",s.d2);
-        count++;
-    }
-
-    printf("\n-------------------------------------------------------------------\n");
-    printf("\n\tTotal number of students are: %d",count);
-    printf("\n-------------------------------------------------------------------\n");
-
-
+	return command;
 }
 
-int search()
+char getAnswer(int token)
 {
+	if (token == 0)
+	{
+		printf("Livro adicionado com sucesso! Deseja adicionar outro?");
+	}
+	else if (token == 1)
+	{
+		printf("Deseja consultar novamente?");		
+	}
+	
+	printf(" (s/n) -> ");
 
-    int rno,found=0;
-    printf("\n\tEnter the roll number you want to search\t");
-    scanf("%d",&rno);
+	char answer;
+	scanf("%c", &answer);
+	getchar();
+	answer = tolower(answer);
+	
+	while(answer != 's' && answer != 'n')
+	{
+		printf("\nComando invalido! Digite novamente -> ");
+		scanf("%c", &answer);
+		getchar();
+		answer = tolower(answer);		
+	}
 
-    fseek(fp,0L,SEEK_SET);
-
-    while(fread(&s,sizeof(s),1,fp))
-    {
-        if(rno==s.rollnum)
-        {
-            printf("\n\tRoll number : %d",s.rollnum);
-            printf("\n\tName : %s",s.name);
-
-            printf("\n\tBook1 name : %s",s.b1);
-            printf("\n\tAuthor1 name : %s",s.a1);
-            printf("\n\tDate of issue1 : %s",s.d1);
-
-            printf("\n\tBook2 name : %s",s.b1);
-            printf("\n\tAuthor2 name : %s",s.a1);
-            printf("\n\tDate of issue2 : %s",s.d1);
-            found=1;
-            break;
-        }
-
-    }
-    if(found!=1)
-            printf("\nRoll number not found");
-
-    return found;
-
+	if (answer == 's')
+	{
+		return 1;
+	}
+	else if(answer == 'n')
+	{
+		return 0;
+	}
 }
 
-
-void modify()
+void setCategory(char *new_book_category)
 {
-    int found;
+	printf("\n0 - Generalidades\n");
+	printf("1 - Filosofia\n");
+	printf("2 - Religiao\n");
+	printf("3 - Ciencias sociais\n");
+	printf("4 - Linguas\n");
+	printf("5 - Ciencias Puras\n");
+	printf("6 - Ciencias Aplicadas\n");
+	printf("7 - Artes\n");
+	printf("8 - Literatura\n");
+	printf("9 - Historia e Geografia\n\n");
 
-    found=search();
+	printf("Digite o número -> ");
 
-    if(found)
-    {
-        printf("\n\tEnter the information u want to update and if dont want to update a specific column then enter the original name of that column to keep it same\t");
-        printf("\n\tenter your Roll number");
-        scanf("%d",s.rollnum);
+	int category;
+	scanf("%d", &category);
+	getchar();
 
-         printf("\n\t enter name");
-    scanf("%s",s.name);
+	while (category != 0 && category != 1 && category != 2 && category != 3 && category != 4 && 
+		category != 5 && category != 6 && category != 7 && category != 8 && category != 9)
+	{
+		printf("Numero invalido, digite novamente -> ");
+		scanf("%d", &category);
+		getchar();
+	}
 
-    printf("\n\t enter new book1 name");
-    scanf("%s",s.b1);
-    printf("\n\t enter new book1 author name");
-    scanf("%s",s.a1);
-    printf("\n\t enter the new date of issue dd/mm/yyyy");
-    scanf("%s",s.d1);
+	switch(category)
+	{
+		case 0:
+		strcpy(new_book_category,"Generalidades");
+		break;	
+
+		case 1:
+		strcpy(new_book_category,"Filosofia");
+		break;	
+
+		case 2:
+		strcpy(new_book_category,"Religiao");
+		break;
+
+		case 3:
+		strcpy(new_book_category,"Ciencias Sociais");
+		break;	
+
+		case 4:
+		strcpy(new_book_category,"Linguas");
+		break;	
+
+		case 5:
+		strcpy(new_book_category,"Ciencias Puras");
+		break;	
+
+		case 6:
+		strcpy(new_book_category,"Ciencias Aplicadas");
+		break;	
+
+		case 7:
+		strcpy(new_book_category,"Artes");
+		break;	
+
+		case 8:
+		strcpy(new_book_category,"Literatura");		
+		break;	
+
+		case 9:
+		strcpy(new_book_category,"Historia e Geografia");
+		break;		
+	}
+}
+
+struct tm getTime() 
+{	    
+	time_t t = time(0);
+	struct tm *today_time = localtime(&t);
+	return *today_time;
+}
+
+void addBook()
+{
+	system("clear");
+	
+	int isbn;
+	char author_name[50];
+	char book_title[50];
+	char publisher[25];
+	char category[20];
+	struct tm *today;
+
+	printf("Digite o nome do livro: ");
+	fgets(book_title,50,stdin);
+	printf("Digite o nome do autor: ");
+	fgets(author_name,50,stdin);
+	printf("Digite o nome da editora: ");
+	fgets(publisher,25,stdin);
+	printf("Digite o número de ISBN: ");
+	
+	scanf("%d", &isbn);
+	getchar();
+	
+	printf("Escolha a categoria\n");
+	setCategory(category);
+	
+	*today = getTime();
 
 
-    printf("\n\t enter new book2 name");
-    scanf("%s",s.b2);
-    printf("\n\t enter new book2 author name");
-    scanf("%s",s.a2);
-    printf("\n\t enter the new date of issue dd/mm/yyyy");
-    scanf("%s",s.d2);
+	FILE *f = fopen("books//data.txt","a+");
+	fprintf(f,"\n%s",book_title);
+	fprintf(f,"%s",author_name);
+	fprintf(f,"%s",publisher);
+	fprintf(f,"%d\n",isbn);
+	fprintf(f,"%s\n",category);
+	fprintf(f,"%.2d/%.2d/%.2d\n", today->tm_mday, today->tm_mon+1, today->tm_year+1900);
+	fclose(f);
 
-    fseek(fp,-((long)sizeof(s)),SEEK_CUR);
+	(getAnswer(0)) ? addBook() : showMenu();
+}
 
-        fwrite(&s,sizeof(s),1,fp);
-        printf("\n\tData updated\n");
+void showAllBooks()
+{
+	system("clear");
+	
+	char book_title[50];
+	char author_name[50];
+	char publisher[50];
+	char isbn[50];
+	char category[20];
+	char date[15];
 
-    }
+	char line[50];
+	FILE *f = fopen("books//data.txt","r");
+
+	printf("\n");
+
+	while(fgets(line,50,f) != NULL)
+	{
+		fgets(book_title,50,f);
+		fgets(author_name,50,f);
+		fgets(publisher,50,f);	
+		fgets(isbn,50,f);
+		fgets(category,20,f);
+		fgets(date,15,f);
+
+		printf("Título: %s", book_title);
+		printf("Autor: %s", author_name);
+		printf("Editora: %s",publisher);
+		printf("ISBN: %s", isbn);
+		printf("Categoria: %s", category);
+		printf("Dia do cadastro: %s\n", date);
+	}
+
+	fclose(f);
+
+	(getAnswer(1)) ? showAllBooks() : showMenu();
+}
+
+void checkContent(int command)
+{
+	system("clear");
+
+	int hasFound = 0;
+
+	char book_title[50];
+	char author_name[50];
+	char publisher[50];
+	char isbn[50];
+	char category[20];
+	char date[15];
+
+	char *picked_content;
+	switch(command)
+	{
+		case 1:
+		printf("Digite o título que deseja buscar: ");
+		picked_content = book_title;
+		break;
+
+		case 2:
+		printf("Digite o autor que deseja buscar: ");
+		picked_content = author_name;
+		break;
+
+		case 3:
+		printf("Digite a editora que deseja buscar: ");
+		picked_content = publisher;
+		break;
+
+		case 4:
+		printf("Digite a categoria que deseja buscar: ");
+		picked_content = category;
+		break;
+
+		case 5:
+		showAllBooks();
+		break;
+	}
+	
+	char searched_content[50];
+	fgets(searched_content,50,stdin);
+	printf("\n");
+
+	FILE *f = fopen("books//data.txt","r");
+
+	char line_break[50];
+	while(fgets(line_break,50,f) != NULL)
+	{
+		fgets(book_title,50,f);
+		fgets(author_name,50,f);
+		fgets(publisher,50,f);
+		fgets(isbn,50,f);
+		fgets(category,50,f);
+		fgets(date,15,f);
+
+		if (compareString(searched_content,picked_content))
+		{
+			hasFound = 1;
+			printf("Título: %s", book_title);
+			printf("Autor: %s", author_name);
+			printf("Editora: %s",publisher);
+			printf("ISBN: %s", isbn);
+			printf("Categoria: %s", category);
+			printf("Dia do cadastro: %s\n", date);
+		}
+	}
+	
+	fclose(f);
+
+	if (!hasFound)
+	{
+		printf("Não foi possível encontrar resultados para essa pesquisa.\n");
+	}
+
+	(getAnswer(1)) ? checkContent(command) : showMenu();
+}
+
+void eraseBooks()
+{
+	system("clear");
+	fclose(fopen("books//data.txt", "w"));
+}
+
+void showMenu()
+{ 
+	system("clear");
+
+	printf("Sistema de Livraria\n\n");
+	printf("1 - Adicionar Livro\n");
+	printf("2 - Checar Livro\n");
+	printf("3 - Apagar dados\n");
+	printf("4 - Sair\n\n");
+	printf("O que deseja? ");
+	
+	int command = getCommand(1);
+	switch(command)
+	{
+		case 1:
+		addBook();
+		break;
+
+		case 2:
+		showCheckMenu();
+		break;
+
+		case 3:
+		eraseBooks();
+		break;
+
+		case 4:
+		system("clear");
+		return;
+	}
+}
+
+void showCheckMenu()
+{
+	system("clear");
+	printf("Deseja consultar por...\n");
+	printf("1 - Título\n");
+	printf("2 - Autor\n");
+	printf("3 - Editora\n");
+	printf("4 - Categoria\n");
+	printf("5 - Todos os livros\n");
+
+	int command = getCommand(2);
+	checkContent(command);
 }
 
 
